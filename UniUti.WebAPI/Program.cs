@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using UniUti.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +39,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
