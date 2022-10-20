@@ -19,16 +19,12 @@ namespace UniUti.Infra.IoC
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
-            string mySqlConnectionString = configuration.GetConnectionString("DefaultConnection");
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
             services.AddDbContext<ApplicationDbContext>
-            (options => options.UseMySql(
-                mySqlConnectionString,
-                ServerVersion.AutoDetect(mySqlConnectionString))
-            );
+            (options => options.UseSqlServer("Server=tcp:uniuti.database.windows.net,1433;Initial Catalog=uniutidatabase;Persist Security Info=False;User ID=uniuti;Password=65A$T<!\\;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;"));
 
 
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();

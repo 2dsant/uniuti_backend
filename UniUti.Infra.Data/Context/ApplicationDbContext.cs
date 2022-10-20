@@ -18,6 +18,10 @@ namespace UniUti.Database
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder mb)
         {
             base.OnModelCreating(mb);

@@ -25,7 +25,7 @@ namespace UniUti.Controllers
             try
             {
                 var cursos = await _service.FindAll();
-                if (!cursos.Any()) return NotFound();
+                if (!cursos.Any()) return NoContent();
                 return Ok(new ResultViewModel
                 {
                     Success = true,
