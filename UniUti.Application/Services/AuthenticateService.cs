@@ -25,7 +25,7 @@ namespace UniUti.Application.Services
         public async Task<UserToken> Authenticate(string email, string password)
         {
             var result = await _authentication.Authenticate(email, password);
-            if (result == null || !result.IsValid)
+            if (result == null)
             {
                 return new UserToken()
                 {
