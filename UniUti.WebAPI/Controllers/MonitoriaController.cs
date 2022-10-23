@@ -3,12 +3,14 @@ using UniUti.Application.ValueObjects;
 using UniUti.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using UniUti.WebAPI.ViewModels;
+using UniUti.WebAPI.Filters;
 
 namespace UniUti.Controllers
 {
     [Authorize]
     [ApiController]
     [Route("api/v1/[controller]")]
+    [ServiceFilter(typeof(ApiLoggingFilter))]
     public class MonitoriaController : ControllerBase
     {
         private readonly IMonitoriaService _service;

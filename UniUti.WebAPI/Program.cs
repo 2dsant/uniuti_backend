@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using UniUti.Infra.IoC;
+using UniUti.WebAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddInfrastructureSwagger();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<ApiLoggingFilter>();
 
 var app = builder.Build();
 

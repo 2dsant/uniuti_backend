@@ -6,12 +6,13 @@ using UniUti.Infra.Data.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UniUti.WebAPI.ViewModels;
 using System.Security.Claims;
-using System.Collections.Generic;
+using UniUti.WebAPI.Filters;
 
 namespace UniUti.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [ServiceFilter(typeof(ApiLoggingFilter))]
     public class AuthController : ControllerBase
     {
         private IAuthenticateService _authentication;

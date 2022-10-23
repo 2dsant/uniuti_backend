@@ -4,11 +4,13 @@ using UniUti.Application.ValueObjects;
 using UniUti.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using UniUti.WebAPI.ViewModels;
+using UniUti.WebAPI.Filters;
 
 namespace UniUti.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [ServiceFilter(typeof(ApiLoggingFilter))]
     public class CursoController : ControllerBase
     {
         private readonly ICursoService _service;

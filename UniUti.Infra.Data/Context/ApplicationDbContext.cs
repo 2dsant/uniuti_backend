@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using UniUti.Infra.Data.Identity;
 using UniUti.Domain.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace UniUti.Database
 {
@@ -14,6 +13,7 @@ namespace UniUti.Database
         public DbSet<EnderecoUsuario> EnderecosUsuario { get; set; }
         public DbSet<Instituicao> Instituicoes { get; set; }
         public DbSet<Monitoria> Monitorias { get; set; }
+        public DbSet<LoggingAplication> Logs { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }

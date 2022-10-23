@@ -24,7 +24,8 @@ namespace UniUti.Infra.IoC
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<ApplicationDbContext>
-            (options => options.UseSqlServer("Server=tcp:uniuti.database.windows.net,1433;Initial Catalog=uniutidatabase;Persist Security Info=False;User ID=uniuti;Password=65A$T<!\\;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;"));
+                (options => options.UseSqlServer("Server=tcp:uniuti.database.windows.net,1433;Initial Catalog=uniutidatabase;Persist Security Info=False;User ID=uniuti;Password=65A$T<!\\;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;"), 
+                ServiceLifetime.Transient);
 
 
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
@@ -35,12 +36,14 @@ namespace UniUti.Infra.IoC
             services.AddScoped<IMonitoriaRepository, MonitoriaRepository>();
             services.AddScoped<ICursoRepository, CursoRepository>();
             services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IDisciplinaService, DisciplinaService>();
             services.AddScoped<ICursoService, CursoService>();
             services.AddScoped<IMonitoriaService, MonitoriaService>();
             services.AddScoped<IInstituicaoService, InstituicaoService>();
             services.AddScoped<IAuthenticateRepository, AuthenticateRepository>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();
+            services.AddScoped<ILogService, LogService>();
             return services;
         }
     }
