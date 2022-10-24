@@ -6,14 +6,44 @@ using System.Text;
 
 namespace UniUti.Domain.Models.Base
 {
-    public class EntidadeBase
+    public abstract class EntidadeBase
     {
         [Key]
         [Column("id")]
         public Guid Id { get; set; }
+
+        [Column("createdAt")]
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+
+        [Column("updatedAt")]
+        public DateTime UpdatedAt { get; private set; } = DateTime.Now;
+
         internal List<string> _errors = new List<string>();
         public IReadOnlyCollection<string> Errors => _errors;
         public bool IsValid => _errors.Count == 0;
+
+        protected EntidadeBase() { }
+
+        public EntidadeBase(Guid? id, DateTime createdAt, DateTime updatedAt)
+        {
+            Id = id is null ? Guid.NewGuid() : id.Value;
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
+        }
+
+        public EntidadeBase(Guid? id)
+        {
+            Id = id is null ? Guid.NewGuid() : id.Value;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
+        }
+
+        public EntidadeBase(Guid? id, DateTime createdAt)
+        {
+            Id = id is null ? Guid.NewGuid() : id.Value;
+            CreatedAt = createdAt;
+            UpdatedAt = DateTime.Now;
+        }
 
         private void AddErrorsList(IList<ValidationFailure> errors)
         {
@@ -40,6 +70,16 @@ namespace UniUti.Domain.Models.Base
                 builder.AppendLine(error);
 
             return builder.ToString();
+        }
+
+        public void SetCreatedAt(DateTime createdAt)
+        {
+            CreatedAt = createdAt;
+        }
+
+        public void SetUpdatedAt(DateTime updatedAt)
+        {
+            UpdatedAt = updatedAt;
         }
     }
 }

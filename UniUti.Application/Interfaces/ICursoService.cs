@@ -8,7 +8,7 @@ namespace UniUti.Application.Interfaces
         Task<IEnumerable<CursoResponseVO>> FindAll();
         Task<CursoResponseVO> FindById(string id);
         Task Create(CursoCreateVO vo);
-        Task Update(CursoResponseVO vo);
+        Task Update(CursoUpdateVO vo);
         Task<bool> Delete(string id);
     }
 }

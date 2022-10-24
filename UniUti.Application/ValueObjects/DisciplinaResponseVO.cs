@@ -1,10 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace UniUti.Application.ValueObjects
 {
-    public class DisciplinaResponseVO
+    public class DisciplinaResponseVO : BaseVO
     {
-        public string? Id { get; set; }
         public string? Nome { get; set; }
         public string? Descricao { get; set; }
     }

@@ -45,12 +45,6 @@ namespace UniUti.Domain.Models.Validator
                 .WithMessage("TipoSolicitação não pode ser nula.")
                 .NotEmpty()
                 .WithMessage("TipoSolicitação não pode ser vazia.");
-
-            RuleFor(x => x.DataCriacao)
-                .NotNull()
-                .WithMessage("DataCiação não pode ser nula.")
-                .NotEmpty()
-                .WithMessage("DataCriação não pode ser vazia.");
         }
     }
 }

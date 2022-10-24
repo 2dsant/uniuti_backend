@@ -16,14 +16,14 @@ namespace UniUti.Infra.Data.Repositories
 
         public async Task<IEnumerable<Instituicao>> FindAll()
         {
-            List<Instituicao> instituicoes = await _context.Instituicoes.Where(i =>
+            List<Instituicao> instituicoes = await _context.Instituicoes.AsNoTracking().Where(i =>
                 i.Deletado == false).ToListAsync();
             return instituicoes;
         }
 
         public async Task<Instituicao> FindById(string id)
         {
-            Instituicao instituicao = await _context.Instituicoes.Where(i =>
+            Instituicao instituicao = await _context.Instituicoes.AsNoTracking().Where(i =>
                 i.Id == Guid.Parse(id) && i.Deletado == false).FirstOrDefaultAsync();
             return instituicao;
         }
@@ -37,6 +37,8 @@ namespace UniUti.Infra.Data.Repositories
 
         public async Task<Instituicao> Update(Instituicao instituicao)
         {
+            var instituicaoDb = await FindById(instituicao.Id.ToString());
+            instituicao.SetCreatedAt(instituicaoDb.CreatedAt);
             _context.Instituicoes.Update(instituicao);
             await _context.SaveChangesAsync();
             return instituicao;

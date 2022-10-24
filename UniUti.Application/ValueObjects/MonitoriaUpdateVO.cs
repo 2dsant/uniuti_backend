@@ -6,7 +6,7 @@ namespace UniUti.Application.ValueObjects
     public class MonitoriaUpdateVO
     {
         [Required(ErrorMessage = "Id é obrigatório.")]
-        public long? Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "SolicitanteId é obrigatório.")]
         public virtual Guid SolicitanteId { get; set; }

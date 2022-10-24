@@ -13,7 +13,6 @@ namespace UniUti.Domain.Models
         public Instituicao? Instituicao { get; private set; }
         public Guid? DisciplinaId { get; private set; }
         public Guid? InstituicaoId { get; private set; }
-        public DateTime? DataCriacao { get; private set; }
         public StatusSolicitacao? StatusSolicitacao { get; private set; }
         public TipoSolicitacao? TipoSolicitacao { get; private set; }
         public bool Deletado { get; private set; } = false;
@@ -21,9 +20,8 @@ namespace UniUti.Domain.Models
         protected Monitoria() { }
 
         public Monitoria(Guid? id,string solicitanteId, string? prestadorId, string descricao, Disciplina disciplina,
-            Instituicao? instituicao, DateTime dataCriacao, StatusSolicitacao statusSolicitacaco, TipoSolicitacao tipoSolicitacao, bool? deletado = false)
+            Instituicao? instituicao, StatusSolicitacao statusSolicitacaco, TipoSolicitacao tipoSolicitacao, bool? deletado = false) : base(id)
         {
-            Id = id == Guid.Empty ? Guid.NewGuid() : id.Value;
             SolicitanteId = solicitanteId;
             PrestadorId = prestadorId;
             Descricao = descricao;
@@ -31,7 +29,36 @@ namespace UniUti.Domain.Models
             Instituicao = instituicao;
             DisciplinaId = Disciplina.Id;
             InstituicaoId = Instituicao.Id;
-            DataCriacao = dataCriacao;
+            StatusSolicitacao = statusSolicitacaco;
+            TipoSolicitacao = tipoSolicitacao;
+            Validate();
+        }
+
+        public Monitoria(Guid? id, string solicitanteId, string? prestadorId, string descricao, Disciplina disciplina,
+            Instituicao? instituicao, StatusSolicitacao statusSolicitacaco, TipoSolicitacao tipoSolicitacao, DateTime createdAt, bool? deletado = false) : base(id, createdAt)
+        {
+            SolicitanteId = solicitanteId;
+            PrestadorId = prestadorId;
+            Descricao = descricao;
+            Disciplina = disciplina;
+            Instituicao = instituicao;
+            DisciplinaId = Disciplina.Id;
+            InstituicaoId = Instituicao.Id;
+            StatusSolicitacao = statusSolicitacaco;
+            TipoSolicitacao = tipoSolicitacao;
+            Validate();
+        }
+
+        public Monitoria(Guid? id, string solicitanteId, string? prestadorId, string descricao, Disciplina disciplina,
+            Instituicao? instituicao, StatusSolicitacao statusSolicitacaco, TipoSolicitacao tipoSolicitacao, DateTime createdAt, DateTime updatedAt, bool? deletado = false) : base(id, createdAt, updatedAt)
+        {
+            SolicitanteId = solicitanteId;
+            PrestadorId = prestadorId;
+            Descricao = descricao;
+            Disciplina = disciplina;
+            Instituicao = instituicao;
+            DisciplinaId = Disciplina.Id;
+            InstituicaoId = Instituicao.Id;
             StatusSolicitacao = statusSolicitacaco;
             TipoSolicitacao = tipoSolicitacao;
             Validate();
@@ -50,6 +77,7 @@ namespace UniUti.Domain.Models
         {
             Id = Guid.NewGuid();
         }
+
         public void SetPrestadoId(string id)
         {
             PrestadorId = id;
@@ -83,12 +111,6 @@ namespace UniUti.Domain.Models
         public void SetInstituicaoId(string id)
         {
             InstituicaoId = Guid.Parse(id);
-            Validate();
-        }
-
-        public void SetDataCriacao(DateTime data)
-        {
-            DataCriacao = data;
             Validate();
         }
 

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UniUti.Application.ValueObjects
 {
-    public class EnderecoResponseVO
+    public class EnderecoResponseVO : BaseVO
     {
         [Required]
         public string? Cep { get; set; }

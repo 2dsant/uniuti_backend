@@ -56,11 +56,12 @@ namespace UniUti.Application.Services
 
         public async Task Update(MonitoriaUpdateVO vo)
         {
-            var monitoriaDb = await _repository.FindById(vo.Id.Value.ToString());
+            var monitoriaDb = await _repository.FindById(vo.Id.ToString());
             var monitoria = _mapper.Map<Monitoria>(vo);
             monitoria.SetInstituicao(await _instituicaoRepository.FindById(vo.InstituicaoId));
             monitoria.SetDisciplina(await _disciplinaRepository.FindById(vo.DisciplinaId));
-            monitoria.SetDataCriacao(monitoriaDb.DataCriacao.Value);
+            monitoria.SetCreatedAt(monitoriaDb.CreatedAt);
+            monitoria.SetUpdatedAt(DateTime.Now);
 
             await _repository.Update(monitoria);
         }

@@ -5,17 +5,30 @@ namespace UniUti.Domain.Models
 {
     public class LoggingAplication : EntidadeBase
     {
-        public DateTime? CreatedAt { get; private set; }
         public string? UserId { get; private set; }
         public string Action { get; private set; }
         public string Path { get; private set; }
 
         protected LoggingAplication() { }
 
-        public LoggingAplication(Guid? id, string? userId, string action, string path)
+        public LoggingAplication(Guid? id, string? userId, string action, string path) : base(id)
         {
-            Id = id is null ? Guid.NewGuid() : id.Value;
-            CreatedAt = DateTime.Now;
+            UserId = userId;
+            Action = action;
+            Path = path;
+        }
+
+        public LoggingAplication(Guid? id, string? userId, string action, string path, DateTime createdAt) 
+            : base(id, createdAt)
+        {
+            UserId = userId;
+            Action = action;
+            Path = path;
+        }
+
+        public LoggingAplication(Guid? id, string? userId, string action, string path, DateTime createdAt, DateTime updatedAt) 
+            : base(id, createdAt, updatedAt)
+        {
             UserId = userId;
             Action = action;
             Path = path;
@@ -24,10 +37,6 @@ namespace UniUti.Domain.Models
         public bool Validate()
             => base.Validate<LoggingAplicationValidator, LoggingAplication>(new LoggingAplicationValidator(), this);
 
-        public void SetCreatedAt(DateTime createdAt)
-        {
-            CreatedAt = createdAt;
-        }
 
         public void SetUserId(string userId)
         {

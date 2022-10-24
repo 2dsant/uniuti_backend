@@ -1,8 +1,7 @@
 namespace UniUti.Application.ValueObjects
 {
-    public class UsuarioResponseVO
+    public class UsuarioResponseVO : BaseVO
     {
-        public string Id { get; set; }
         public string? NomeCompleto { get; set; }
         public string? Email { get; set; }
         public string? Celular { get; set; }

@@ -10,14 +10,33 @@ namespace UniUti.Domain.Models
 
         protected Curso() { }
 
-        public Curso(Guid? id, string? nome, bool? deletado = false)
+        public Curso(Guid? id, string? nome, bool? deletado = false) : base(id)
         {
-            Id = id == Guid.Empty ? Guid.NewGuid() : id.Value;
             Nome = nome;
             Deletado = deletado.Value;
             _errors = new List<string>();
+
             this.Validate();
         }
+
+        public Curso(Guid? id, string? nome, DateTime createdAt, bool? deletado = false) : base(id, createdAt)
+        {
+            Nome = nome;
+            Deletado = deletado.Value;
+            _errors = new List<string>();
+
+            this.Validate();
+        }
+
+        public Curso(Guid? id, string? nome, DateTime createdAt, DateTime updatedAt, bool? deletado = false) : base(id, createdAt, updatedAt)
+        {
+            Nome = nome;
+            Deletado = deletado.Value;
+            _errors = new List<string>();
+
+            this.Validate();
+        }
+
 
         public bool Validate()
             => base.Validate<CursoValidator, Curso>(new CursoValidator(), this);

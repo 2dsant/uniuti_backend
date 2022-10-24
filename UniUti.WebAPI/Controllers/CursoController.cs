@@ -108,7 +108,7 @@ namespace UniUti.Controllers
 
         [HttpPut("Update")]
         [Authorize]
-        public async Task<ActionResult<CursoResponseVO>> Update([FromBody] CursoResponseVO vo)
+        public async Task<ActionResult<CursoResponseVO>> Update([FromBody] CursoUpdateVO vo)
         {
             if (ModelState.IsValid)
             {

@@ -17,13 +17,13 @@ namespace UniUti.Infra.Data.Repositories
 
         public async Task<IEnumerable<Disciplina>> FindAll()
         {
-            List<Disciplina> disciplinas = await _context.Disciplinas.Where(i => !i.Deletado).ToListAsync();
+            List<Disciplina> disciplinas = await _context.Disciplinas.AsNoTracking().Where(i => !i.Deletado).ToListAsync();
             return disciplinas;
         }
 
         public async Task<Disciplina> FindById(string id)
         {
-            Disciplina disciplina = await _context.Disciplinas.Where(i =>
+            Disciplina disciplina = await _context.Disciplinas.AsNoTracking().Where(i =>
                 i.Id == Guid.Parse(id) && !i.Deletado).FirstOrDefaultAsync();
 
             return disciplina;
@@ -38,6 +38,8 @@ namespace UniUti.Infra.Data.Repositories
 
         public async Task<Disciplina> Update(Disciplina disciplina)
         {
+            var disciplinaDb = await FindById(disciplina.Id.ToString());
+            disciplina.SetCreatedAt(disciplinaDb.CreatedAt);
             _context.Disciplinas.Update(disciplina);
             await _context.SaveChangesAsync();
             return disciplina;

@@ -17,7 +17,37 @@ namespace UniUti.Domain.Models
         protected EnderecoUsuario() { }
 
         public EnderecoUsuario(Guid? id, string cep, string rua, string numero, string cidade,
-            string estado, string pais, string applicationUserId, bool? deletado = false)
+            string estado, string pais, string applicationUserId, bool? deletado = false) : base(id)
+        {
+            Id = id == Guid.Empty ? Guid.NewGuid() : id.Value;
+            Cep = cep;
+            Rua = rua;
+            Numero = numero;
+            Cidade = cidade;
+            Estado = estado;
+            Pais = pais;
+            ApplicationUserId = applicationUserId;
+            Deletado = deletado;
+            Validate();
+        }
+
+        public EnderecoUsuario(Guid? id, string cep, string rua, string numero, string cidade,
+            string estado, string pais, string applicationUserId, DateTime createdAt, bool? deletado = false) : base(id, createdAt)
+        {
+            Id = id == Guid.Empty ? Guid.NewGuid() : id.Value;
+            Cep = cep;
+            Rua = rua;
+            Numero = numero;
+            Cidade = cidade;
+            Estado = estado;
+            Pais = pais;
+            ApplicationUserId = applicationUserId;
+            Deletado = deletado;
+            Validate();
+        }
+
+        public EnderecoUsuario(Guid? id, string cep, string rua, string numero, string cidade,
+            string estado, string pais, string applicationUserId, DateTime createdAt, DateTime updatedAt, bool? deletado = false) : base(id, createdAt, updatedAt)
         {
             Id = id == Guid.Empty ? Guid.NewGuid() : id.Value;
             Cep = cep;

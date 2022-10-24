@@ -5,7 +5,7 @@ namespace UniUti.Application.ValueObjects
     public class DisciplinaUpdateVO
     {
         [Required(ErrorMessage = "Id é obrigatório.")]
-        public long? Id { get; set; }
+        public string? Id { get; set; }
 
         [Required(ErrorMessage = "Nome é obrigatório.")]
         [MaxLength(100, ErrorMessage = "Nome inválido. O nome deve conter até 100 caracteres.")]

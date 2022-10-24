@@ -17,14 +17,14 @@ namespace UniUti.Infra.Data.Repositories
 
         public async Task<IEnumerable<Curso>> FindAll()
         {
-            List<Curso> cursos = await _context.Cursos.Where(i =>
+            List<Curso> cursos = await _context.Cursos.AsNoTracking().Where(i =>
                 i.Deletado == false).ToListAsync();
             return cursos;
         }
 
         public async Task<Curso> FindById(string id)
         {
-            Curso curso = await _context.Cursos.Where(i =>
+            Curso curso = await _context.Cursos.AsNoTracking().Where(i =>
                 i.Id == Guid.Parse(id) && i.Deletado == false).FirstOrDefaultAsync();
 
             return curso;
@@ -39,6 +39,8 @@ namespace UniUti.Infra.Data.Repositories
 
         public async Task<Curso> Update(Curso curso)
         {
+            var cursoDb = await FindById(curso.Id.ToString());
+            curso.SetCreatedAt(cursoDb.CreatedAt);
             _context.Cursos.Update(curso);
             await _context.SaveChangesAsync();
             return curso;

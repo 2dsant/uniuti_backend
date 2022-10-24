@@ -12,13 +12,36 @@ namespace UniUti.Domain.Models
 
         protected Disciplina() { }
 
-        public Disciplina(Guid? id, string nome, string descricao, List<Monitoria>? monitorias, bool? deletado = false)
+        public Disciplina(Guid? id, string nome, string descricao, List<Monitoria>? monitorias, bool? deletado = false) : base(id)
+        {
+            Nome = nome;
+            Descricao = descricao;
+            Monitorias = monitorias;
+            Deletado = deletado.Value;
+
+            Validate();
+        }
+
+        public Disciplina(Guid? id, string nome, string descricao, List<Monitoria>? monitorias, DateTime createdAt, bool? deletado = false) 
+            : base(id, createdAt)
+        {
+            Nome = nome;
+            Descricao = descricao;
+            Monitorias = monitorias;
+            Deletado = deletado.Value;
+
+            Validate();
+        }
+
+        public Disciplina(Guid? id, string nome, string descricao, List<Monitoria>? monitorias, DateTime createdAt, DateTime updatedAt, bool? deletado = false) 
+            : base(id, createdAt, updatedAt)
         {
             Id = id == Guid.Empty ? Guid.NewGuid() : id.Value;
             Nome = nome;
             Descricao = descricao;
             Monitorias = monitorias;
             Deletado = deletado.Value;
+
             Validate();
         }
 

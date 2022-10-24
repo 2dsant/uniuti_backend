@@ -37,7 +37,7 @@ namespace UniUti.Application.Services
             await _cursoRepository.Create(curso);
         }
 
-        public async Task Update(CursoResponseVO vo)
+        public async Task Update(CursoUpdateVO vo)
         {
             var curso = _mapper.Map<Curso>(vo);
             await _cursoRepository.Update(curso);

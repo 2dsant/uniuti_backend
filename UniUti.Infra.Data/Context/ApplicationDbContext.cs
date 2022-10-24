@@ -142,7 +142,7 @@ namespace UniUti.Database
                 .HasMaxLength(500)
                 .IsRequired()
                 .HasColumnName("descricao");
-            mb.Entity<Monitoria>().Property(x => x.DataCriacao).IsRequired();
+            mb.Entity<Monitoria>().Property(x => x.CreatedAt).IsRequired();
             mb.Entity<Monitoria>().Property(x => x.StatusSolicitacao)
                 .IsRequired()
                 .HasColumnName("status_solicitacao");

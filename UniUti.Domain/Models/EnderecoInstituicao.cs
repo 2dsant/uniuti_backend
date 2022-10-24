@@ -18,9 +18,38 @@ namespace UniUti.Domain.Models
         protected EnderecoInstituicao() { }
 
         public EnderecoInstituicao(Guid? id, string cep, string rua, string numero, string cidade, 
-            string estado, string pais, Instituicao instituicao, bool? deletado = false)
+            string estado, string pais, Instituicao instituicao, bool? deletado = false) : base(id)
         {
-            Id = id == Guid.Empty ? Guid.NewGuid() : id.Value;
+            Cep = cep;
+            Rua = rua;
+            Numero = numero;
+            Cidade = cidade;
+            Estado = estado;
+            Pais = pais;
+            Instituicao = instituicao;
+            InstituicaoId = Instituicao.Id;
+            Deletado = deletado;
+            Validate();
+        }
+
+        public EnderecoInstituicao(Guid? id, string cep, string rua, string numero, string cidade,
+            string estado, string pais, Instituicao instituicao, DateTime createdAt, bool? deletado = false) : base(id, createdAt)
+        {
+            Cep = cep;
+            Rua = rua;
+            Numero = numero;
+            Cidade = cidade;
+            Estado = estado;
+            Pais = pais;
+            Instituicao = instituicao;
+            InstituicaoId = Instituicao.Id;
+            Deletado = deletado;
+            Validate();
+        }
+
+        public EnderecoInstituicao(Guid? id, string cep, string rua, string numero, string cidade,
+            string estado, string pais, Instituicao instituicao, DateTime createdAt, DateTime updatedAt, bool? deletado = false) : base(id, createdAt, updatedAt)
+        {
             Cep = cep;
             Rua = rua;
             Numero = numero;

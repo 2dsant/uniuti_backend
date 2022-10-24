@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using UniUti.Domain.Models.Base;
 using UniUti.Domain.Models.Validator;
+using UniUti.Domain.Models.Base;
 
 namespace UniUti.Domain.Models
 {
@@ -20,9 +20,8 @@ namespace UniUti.Domain.Models
         protected Instituicao() { }
 
         public Instituicao(Guid? id, string nome, List<string>? usuariosId, EnderecoInstituicao endereco, 
-            List<EnderecoInstituicao>? enderecos, string telefone, string email, string celular, bool? deletado = false)
+            List<EnderecoInstituicao>? enderecos, string telefone, string email, string celular, bool? deletado = false) : base(id)
         {
-            Id = id == Guid.Empty ? Guid.NewGuid() : id.Value;
             Nome = nome;
             UsuariosId = usuariosId;
             Endereco = endereco;
@@ -35,7 +34,33 @@ namespace UniUti.Domain.Models
         }
 
         public Instituicao(Guid id, string nome,EnderecoInstituicao endereco,
-            string telefone, string email, string celular, bool? deletado = false)
+            string telefone, string email, string celular, bool? deletado = false) : base(id)
+        {
+            Id = id;
+            Nome = nome;
+            Endereco = endereco;
+            Telefone = telefone;
+            Email = email;
+            Celular = celular;
+            Deletado = deletado.Value;
+            Validate();
+        }
+
+        public Instituicao(Guid id, string nome, EnderecoInstituicao endereco,
+            string telefone, string email, string celular, DateTime createdAt, bool? deletado = false) : base(id, createdAt)
+        {
+            Id = id;
+            Nome = nome;
+            Endereco = endereco;
+            Telefone = telefone;
+            Email = email;
+            Celular = celular;
+            Deletado = deletado.Value;
+            Validate();
+        }
+
+        public Instituicao(Guid id, string nome, EnderecoInstituicao endereco,
+            string telefone, string email, string celular, DateTime createdAt, DateTime updatedAt, bool? deletado = false) : base(id, createdAt, updatedAt)
         {
             Id = id;
             Nome = nome;
