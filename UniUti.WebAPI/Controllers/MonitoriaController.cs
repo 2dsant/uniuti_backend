@@ -24,105 +24,49 @@ namespace UniUti.Controllers
         [HttpGet("FindAll")]
         public async Task<ActionResult<IEnumerable<MonitoriaResponseVO>>> FindAll()
         {
-            try
+            var monitorias = await _service.FindAll();
+            if (monitorias == null) return NotFound();
+            return Ok(new ResultViewModel
             {
-                var monitorias = await _service.FindAll();
-                if (monitorias == null) return NotFound();
-                return Ok(new ResultViewModel
-                {
-                    Success = true,
-                    Data = monitorias
-                });
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                });
-            }
+                Success = true,
+                Data = monitorias
+            });
         }
 
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<MonitoriaResponseVO>> FindById(string id)
         {
-            try
+            var monitoria = await _service.FindById(id);
+            if (monitoria == null) return NotFound();
+            return Ok(new ResultViewModel
             {
-                var monitoria = await _service.FindById(id);
-                if (monitoria == null) return NotFound();
-                return Ok(new ResultViewModel
-                {
-                    Success = true,
-                    Data = monitoria
-                });
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                });
-            }
+                Success = true,
+                Data = monitoria
+            });
         }
 
         [HttpGet("GetByStatus/{status}")]
         public async Task<ActionResult<MonitoriaResponseVO>> FindByStatus(long status)
         {
-            try
+            var monitoria = await _service.FindByStatus(status);
+            if (monitoria == null) return NotFound();
+            return Ok(new ResultViewModel
             {
-                var monitoria = await _service.FindByStatus(status);
-                if (monitoria == null) return NotFound();
-                return Ok(new ResultViewModel
-                {
-                    Success = true,
-                    Data = monitoria
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                });
-            }
+                Success = true,
+                Data = monitoria
+            });
         }
 
         [HttpGet("FindByUser/{idUser}")]
         public async Task<ActionResult<MonitoriaResponseVO>> FindByUser(string idUser)
         {
-            try
+            var monitoria = await _service.FindByUser(idUser);
+            if (monitoria == null) return NotFound();
+            return Ok(new ResultViewModel
             {
-                var monitoria = await _service.FindByUser(idUser);
-                if (monitoria == null) return NotFound();
-                return Ok(new ResultViewModel
-                {
-                    Success = true,
-                    Data = monitoria
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                });
-            }
+                Success = true,
+                Data = monitoria
+            });
         }
 
         [HttpPost("Create")]
@@ -131,26 +75,12 @@ namespace UniUti.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                await _service.Create(vo);
+                return Ok(new ResultViewModel
                 {
-                    await _service.Create(vo);
-                    return Ok(new ResultViewModel
-                    {
-                        Success = true,
-                        Data = vo
-                    });
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(new ResultViewModel
-                    {
-                        Success = false,
-                        Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                    });
-                }
+                    Success = true,
+                    Data = vo
+                });
             }
             else
             {
@@ -164,26 +94,12 @@ namespace UniUti.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                await _service.Update(vo);
+                return Ok(new ResultViewModel
                 {
-                    await _service.Update(vo);
-                    return Ok(new ResultViewModel
-                    {
-                        Success = true,
-                        Data = vo
-                    });
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(new ResultViewModel
-                    {
-                        Success = false,
-                        Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                    });
-                }
+                    Success = true,
+                    Data = vo
+                });
             }
             else
             {

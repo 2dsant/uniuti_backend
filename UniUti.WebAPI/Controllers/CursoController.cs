@@ -24,53 +24,25 @@ namespace UniUti.Controllers
         [HttpGet("FindAll")]
         public async Task<ActionResult<IEnumerable<CursoResponseVO>>> FindAll()
         {
-            try
+            var cursos = await _service.FindAll();
+            if (!cursos.Any()) return NoContent();
+            return Ok(new ResultViewModel
             {
-                var cursos = await _service.FindAll();
-                if (!cursos.Any()) return NoContent();
-                return Ok(new ResultViewModel
-                {
-                    Success = true,
-                    Data = cursos
-                });
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                });
-            }
+                Success = true,
+                Data = cursos
+            });
         }
 
         [HttpGet("FindById/{id}")]
         public async Task<ActionResult<CursoResponseVO>> FindById(string id)
         {
-            try
+            var curso = await _service.FindById(id);
+            if (curso == null) return NotFound();
+            return Ok(new ResultViewModel
             {
-                var curso = await _service.FindById(id);
-                if (curso == null) return NotFound();
-                return Ok(new ResultViewModel
-                {
-                    Success = true,
-                    Data = curso
-                });
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                });
-            }
+                Success = true,
+                Data = curso
+            });
         }
 
         [HttpPost("Create")]
@@ -79,26 +51,12 @@ namespace UniUti.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                await _service.Create(vo);
+                return Ok(new ResultViewModel
                 {
-                    await _service.Create(vo);
-                    return Ok(new ResultViewModel
-                    {
-                        Success = true,
-                        Data = vo
-                    });
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(new ResultViewModel
-                    {
-                        Success = false,
-                        Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                    });
-                }
+                    Success = true,
+                    Data = vo
+                });
             }
             else
             {
@@ -112,26 +70,12 @@ namespace UniUti.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                await _service.Update(vo);
+                return Ok(new ResultViewModel
                 {
-                    await _service.Update(vo);
-                    return Ok(new ResultViewModel
-                    {
-                        Success = true,
-                        Data = vo
-                    });
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(new ResultViewModel
-                    {
-                        Success = false,
-                        Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                    });
-                }
+                    Success = true,
+                    Data = vo
+                });
             }
             else
             {
@@ -143,23 +87,9 @@ namespace UniUti.Controllers
         [Authorize]
         public async Task<ActionResult<GenericResponse>> Delete(string id)
         {
-            try
-            {
-                var response = await _service.Delete(id);
-                if (!response) return NotFound();
-                return Ok("Curso deletado.");
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                });
-            }
+            var response = await _service.Delete(id);
+            if (!response) return NotFound();
+            return Ok("Curso deletado.");
         }
     }
 }

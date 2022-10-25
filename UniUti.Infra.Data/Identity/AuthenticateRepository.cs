@@ -45,33 +45,26 @@ namespace UniUti.Infra.Data.Identity
 
         public async Task<Usuario> RegisterUser(Usuario usuario)
         {
-            try
+            var applicationUser = new ApplicationUser(usuario.Id.ToString(), usuario.NomeCompleto, usuario.Email, usuario.Celular,
+                usuario.InstituicaoId, usuario.CursoId, usuario.MonitoriasSolicitadas, usuario.MonitoriasOfertadas, usuario.Enderecos,
+                usuario.Endereco, usuario.Instituicao, usuario.Curso, usuario.Deletado);
+
+            var result = await _userManager.CreateAsync(applicationUser, usuario.Password);
+
+            if (result.Succeeded)
             {
-                var applicationUser = new ApplicationUser(usuario.Id.ToString(), usuario.NomeCompleto, usuario.Email, usuario.Celular, 
-                    usuario.InstituicaoId, usuario.CursoId, usuario.MonitoriasSolicitadas, usuario.MonitoriasOfertadas, usuario.Enderecos, 
-                    usuario.Endereco, usuario.Instituicao, usuario.Curso, usuario.Deletado);
-                
-                var result = await _userManager.CreateAsync(applicationUser, usuario.Password);
-
-                if (result.Succeeded)
-                {
-                    usuario.Endereco.SetId();
-                    usuario.Endereco.SetApplicationUserId(usuario.Id.ToString());
-                    await _context.EnderecosUsuario.AddAsync(usuario.Endereco);
-                    await _userManager.SetLockoutEnabledAsync(applicationUser, false);
-                    await _signInManager.SignInAsync(applicationUser, isPersistent: false);
-                    await _context.SaveChangesAsync();
-                }
-
-                var user = await _userManager.FindByEmailAsync(usuario.Email);
-
-                return new Usuario(Guid.Parse(user.Id), user.NomeCompleto, user.PasswordHash, user.Email,
-                    null, null, user.Celular, user.Enderecos?.ToList(), user.Endereco, user.Instituicao, user.Curso, user.Deletado);
+                usuario.Endereco.SetId();
+                usuario.Endereco.SetApplicationUserId(usuario.Id.ToString());
+                await _context.EnderecosUsuario.AddAsync(usuario.Endereco);
+                await _userManager.SetLockoutEnabledAsync(applicationUser, false);
+                await _signInManager.SignInAsync(applicationUser, isPersistent: false);
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
+
+            var user = await _userManager.FindByEmailAsync(usuario.Email);
+
+            return new Usuario(Guid.Parse(user.Id), user.NomeCompleto, user.PasswordHash, user.Email,
+                null, null, user.Celular, user.Enderecos?.ToList(), user.Endereco, user.Instituicao, user.Curso, user.Deletado);
         }
 
         public async Task<Usuario>? GetApplicationUser(string email)

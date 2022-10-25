@@ -20,7 +20,7 @@ namespace UniUti.WebAPI.Filters
             var id = context.HttpContext.User.FindFirst("id")?.Value;
             var action = context.ActionDescriptor.DisplayName;
             var path = context.HttpContext.Request.Path.Value;
-            var loggingApp = new LoggingAplication(null, id, action, path);
+            var loggingApp = new LoggingAplication(null, id, action, path, null);
 
             _log.GravarLog(loggingApp);
         }

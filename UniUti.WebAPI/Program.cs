@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
-using UniUti.Infra.IoC;
+using UniUti.WebAPI.Middleware;
 using UniUti.WebAPI.Filters;
+using UniUti.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +48,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<UniUtiMiddlewareException>();
 
 app.MapControllers();
 

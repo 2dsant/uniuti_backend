@@ -17,7 +17,7 @@ namespace UniUti.Controllers
     {
         private IAuthenticateService _authentication;
 
-        public AuthController(IAuthenticateService authentication, IConfiguration configuration, 
+        public AuthController(IAuthenticateService authentication, IConfiguration configuration,
             UserManager<ApplicationUser> userManager, IHttpContextAccessor accessor)
         {
             _authentication = authentication ??
@@ -28,49 +28,30 @@ namespace UniUti.Controllers
         [HttpPost("LoginUser")]
         public async Task<ActionResult<ResultViewModel>> Login([FromBody] LoginModel userInfo)
         {
-            try
-            {
-                var result = await _authentication.Authenticate(userInfo.Email, userInfo.Password);
-                if (!result.Success)
-                {
-                    return BadRequest(new ResultViewModel
-                    {
-                        Success = false,
-                        Errors = new List<string> { "Credenciais incorretas." }
-                    });
-                }
-                return new ResultViewModel
-                {
-                    Success = true,
-                    Data = result
-                };
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Data = null,
-                    Errors = new List<string>{ ex.Message }
-                }) ;
-            }
+            throw new Exception();
+            //var result = await _authentication.Authenticate(userInfo.Email, userInfo.Password);
+            //if (!result.Success)
+            //{
+            //    return BadRequest(new ResultViewModel
+            //    {
+            //        Success = false,
+            //        Errors = new List<string> { "Credenciais incorretas." }
+            //    });
+            //}
+            //return new ResultViewModel
+            //{
+            //    Success = true,
+            //    Data = result
+            //};
         }
 
         [HttpPost("CreateUser")]
         public async Task<ActionResult> CreateUser([FromBody] UsuarioRegistroVO userInfo)
         {
-            try
-            {
-                var existUser = await _authentication.GetUserByEmail(userInfo.Email);
-                if(existUser is not null) return BadRequest("Email já cadastrado.");
-                var result = await _authentication.RegisterUser(userInfo);
-                return Ok($"Usuário {userInfo.Email} foi criado com sucesso.");
-            }
-            catch(Exception)
-            {
-                ModelState.AddModelError(String.Empty, "Tentativa de criar usuário inválida.");
-                return BadRequest(ModelState);
-            }
+            var existUser = await _authentication.GetUserByEmail(userInfo.Email);
+            if (existUser is not null) return BadRequest("Email já cadastrado.");
+            var result = await _authentication.RegisterUser(userInfo);
+            return Ok($"Usuário {userInfo.Email} foi criado com sucesso.");
         }
 
         [HttpPost("refresh-login")]

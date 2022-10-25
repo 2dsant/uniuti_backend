@@ -35,7 +35,7 @@ namespace UniUti.Application.Services
             }
             if (result.CursoId != null)
                 result.SetCurso(await _cursoRepository.FindById(result.CursoId.ToString()));
-            
+
             if (result.InstituicaoId != null)
                 result.SetInstituicao(await _instituicaoRepository.FindById(result.InstituicaoId.ToString()));
 
@@ -50,30 +50,16 @@ namespace UniUti.Application.Services
 
         public async Task<UsuarioResponseVO> RegisterUser(UsuarioRegistroVO usuario)
         {
-            try
-            {
-                var userMap = _mapper.Map<Usuario>(usuario);
-                userMap.SetId();
-                var result = await _authentication.RegisterUser(userMap);
-                return _mapper.Map<UsuarioResponseVO>(result);
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
+            var userMap = _mapper.Map<Usuario>(usuario);
+            userMap.SetId();
+            var result = await _authentication.RegisterUser(userMap);
+            return _mapper.Map<UsuarioResponseVO>(result);
         }
 
         public async Task<UsuarioResponseVO> GetUserByEmail(string email)
         {
-            try
-            {
-                var result = await _authentication.GetApplicationUser(email);
-                return result is null ? null : _mapper.Map<UsuarioResponseVO>(result);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
+            var result = await _authentication.GetApplicationUser(email);
+            return result is null ? null : _mapper.Map<UsuarioResponseVO>(result);
         }
 
         public async Task<string> GenerateToken(string email)

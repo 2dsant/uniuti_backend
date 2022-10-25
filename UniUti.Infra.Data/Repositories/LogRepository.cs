@@ -17,6 +17,7 @@ namespace UniUti.Infra.Data.Repositories
         {
             await _context.Logs.AddAsync(log);
             await _context.SaveChangesAsync();
+            _context.Dispose();
         }
     }
 }

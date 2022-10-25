@@ -25,53 +25,25 @@ namespace UniUti.Controllers
         [HttpGet("FindAll")]
         public async Task<ActionResult<IEnumerable<InstituicaoResponseVO>>> FindAll()
         {
-            try
+            var instituicoes = await _service.FindAll();
+            if (instituicoes == null) return NotFound();
+            return Ok(new ResultViewModel
             {
-                var instituicoes = await _service.FindAll();
-                if (instituicoes == null) return NotFound();
-                return Ok(new ResultViewModel
-                {
-                    Success = true,
-                    Data = instituicoes
-                });
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                });
-            }
+                Success = true,
+                Data = instituicoes
+            });
         }
 
         [HttpGet("FindById/{id}")]
         public async Task<ActionResult<InstituicaoResponseVO>> FindById(string id)
         {
-            try
+            var instituicao = await _service.FindById(id);
+            if (instituicao == null) return NotFound();
+            return Ok(new ResultViewModel
             {
-                var instituicao = await _service.FindById(id);
-                if (instituicao == null) return NotFound();
-                return Ok(new ResultViewModel
-                {
-                    Success = true,
-                    Data = instituicao
-                });
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new ResultViewModel
-                {
-                    Success = false,
-                    Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                });
-            }
+                Success = true,
+                Data = instituicao
+            });
         }
 
         [HttpPost("Create")]
@@ -80,26 +52,12 @@ namespace UniUti.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                await _service.Create(vo);
+                return Ok(new ResultViewModel
                 {
-                    await _service.Create(vo);
-                    return Ok(new ResultViewModel
-                    {
-                        Success = true,
-                        Data = vo
-                    });
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(new ResultViewModel
-                    {
-                        Success = false,
-                        Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                    });
-                }
+                    Success = true,
+                    Data = vo
+                });
             }
             else
             {
@@ -113,26 +71,12 @@ namespace UniUti.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                await _service.Update(vo);
+                return Ok(new ResultViewModel
                 {
-                    await _service.Update(vo);
-                    return Ok(new ResultViewModel
-                    {
-                        Success = true,
-                        Data = vo
-                    });
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(new ResultViewModel
-                    {
-                        Success = false,
-                        Errors = new List<string>()
-                        {
-                            ex.Message
-                        }
-                    });
-                }
+                    Success = true,
+                    Data = vo
+                });
             }
             else
             {
