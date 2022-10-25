@@ -28,21 +28,20 @@ namespace UniUti.Controllers
         [HttpPost("LoginUser")]
         public async Task<ActionResult<ResultViewModel>> Login([FromBody] LoginModel userInfo)
         {
-            throw new Exception();
-            //var result = await _authentication.Authenticate(userInfo.Email, userInfo.Password);
-            //if (!result.Success)
-            //{
-            //    return BadRequest(new ResultViewModel
-            //    {
-            //        Success = false,
-            //        Errors = new List<string> { "Credenciais incorretas." }
-            //    });
-            //}
-            //return new ResultViewModel
-            //{
-            //    Success = true,
-            //    Data = result
-            //};
+            var result = await _authentication.Authenticate(userInfo.Email, userInfo.Password);
+            if (!result.Success)
+            {
+                return BadRequest(new ResultViewModel
+                {
+                    Success = false,
+                    Errors = new List<string> { "Credenciais incorretas." }
+                });
+            }
+            return new ResultViewModel
+            {
+                Success = true,
+                Data = result
+            };
         }
 
         [HttpPost("CreateUser")]
