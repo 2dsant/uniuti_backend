@@ -9,13 +9,10 @@ namespace UniUti.Domain.Models.Base
     public abstract class EntidadeBase
     {
         [Key]
-        [Column("id")]
         public Guid Id { get; set; }
 
-        [Column("createdAt")]
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
 
-        [Column("updatedAt")]
         public DateTime UpdatedAt { get; private set; } = DateTime.Now;
 
         internal List<string> _errors = new List<string>();
