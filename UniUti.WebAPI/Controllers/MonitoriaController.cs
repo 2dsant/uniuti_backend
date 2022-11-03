@@ -22,7 +22,7 @@ namespace UniUti.Controllers
         }
 
         [HttpGet("FindAll")]
-        public async Task<ActionResult<IEnumerable<MonitoriaResponseVO>>> FindAll()
+        public async Task<ActionResult<ResultViewModel>> FindAll()
         {
             var monitorias = await _service.FindAll();
             if (monitorias == null) return NotFound();
@@ -34,7 +34,7 @@ namespace UniUti.Controllers
         }
 
         [HttpGet("GetById/{id}")]
-        public async Task<ActionResult<MonitoriaResponseVO>> FindById(string id)
+        public async Task<ActionResult<ResultViewModel>> FindById(string id)
         {
             var monitoria = await _service.FindById(id);
             if (monitoria == null) return NotFound();
@@ -46,7 +46,7 @@ namespace UniUti.Controllers
         }
 
         [HttpGet("GetByStatus/{status}")]
-        public async Task<ActionResult<MonitoriaResponseVO>> FindByStatus(long status)
+        public async Task<ActionResult<ResultViewModel>> FindByStatus(long status)
         {
             var monitoria = await _service.FindByStatus(status);
             if (monitoria == null) return NotFound();
@@ -58,7 +58,7 @@ namespace UniUti.Controllers
         }
 
         [HttpGet("FindByUser/{idUser}")]
-        public async Task<ActionResult<MonitoriaResponseVO>> FindByUser(string idUser)
+        public async Task<ActionResult<ResultViewModel>> FindByUser(string idUser)
         {
             var monitoria = await _service.FindByUser(idUser);
             if (monitoria == null) return NotFound();
@@ -70,7 +70,7 @@ namespace UniUti.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult<MonitoriaResponseVO>> Create
+        public async Task<ActionResult<ResultViewModel>> Create
         ([FromBody] MonitoriaCreateVO vo)
         {
             if (ModelState.IsValid)
@@ -89,7 +89,7 @@ namespace UniUti.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<ActionResult<MonitoriaResponseVO>> Update
+        public async Task<ActionResult<ResultViewModel>> Update
             ([FromBody] MonitoriaUpdateVO vo)
         {
             if (ModelState.IsValid)

@@ -23,7 +23,7 @@ namespace UniUti.Controllers
         }
 
         [HttpGet("FindAll")]
-        public async Task<ActionResult<IEnumerable<DisciplinaResponseVO>>> FindAll()
+        public async Task<ActionResult<ResultViewModel>> FindAll()
         {
             var disciplinas = await _service.FindAll();
             if (disciplinas == null) return NotFound();
@@ -35,7 +35,7 @@ namespace UniUti.Controllers
         }
 
         [HttpGet("FindById/{id}")]
-        public async Task<ActionResult<DisciplinaResponseVO>> FindById(string id)
+        public async Task<ActionResult<ResultViewModel>> FindById(string id)
         {
             var disciplina = await _service.FindById(id);
             if (disciplina == null) return NotFound();
@@ -47,7 +47,7 @@ namespace UniUti.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult<DisciplinaResponseVO>> Create([FromBody] DisciplinaCreateVO vo)
+        public async Task<ActionResult<ResultViewModel>> Create([FromBody] DisciplinaCreateVO vo)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace UniUti.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<ActionResult<DisciplinaResponseVO>> Update([FromBody] DisciplinaUpdateVO vo)
+        public async Task<ActionResult<ResultViewModel>> Update([FromBody] DisciplinaUpdateVO vo)
         {
             if (ModelState.IsValid)
             {
@@ -83,11 +83,14 @@ namespace UniUti.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
-        public async Task<ActionResult<GenericResponse>> Delete(string id)
+        public async Task<ActionResult<ResultViewModel>> Delete(string id)
         {
             var response = await _service.Delete(id);
             if (!response) return NotFound();
-            return Ok("Disciplina deletada.");
+            return Ok(new ResultViewModel
+            {
+                Success = true,
+            });
         }
     }
 }

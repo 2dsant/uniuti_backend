@@ -22,7 +22,7 @@ namespace UniUti.Controllers
         }
 
         [HttpGet("FindAll")]
-        public async Task<ActionResult<IEnumerable<CursoResponseVO>>> FindAll()
+        public async Task<ActionResult<ResultViewModel>> FindAll()
         {
             var cursos = await _service.FindAll();
             if (!cursos.Any()) return NoContent();
@@ -34,7 +34,7 @@ namespace UniUti.Controllers
         }
 
         [HttpGet("FindById/{id}")]
-        public async Task<ActionResult<CursoResponseVO>> FindById(string id)
+        public async Task<ActionResult<ResultViewModel>> FindById(string id)
         {
             var curso = await _service.FindById(id);
             if (curso == null) return NotFound();
@@ -47,7 +47,7 @@ namespace UniUti.Controllers
 
         [HttpPost("Create")]
         [Authorize]
-        public async Task<ActionResult<CursoResponseVO>> Create([FromBody] CursoCreateVO vo)
+        public async Task<ActionResult<ResultViewModel>> Create([FromBody] CursoCreateVO vo)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace UniUti.Controllers
 
         [HttpPut("Update")]
         [Authorize]
-        public async Task<ActionResult<CursoResponseVO>> Update([FromBody] CursoUpdateVO vo)
+        public async Task<ActionResult<ResultViewModel>> Update([FromBody] CursoUpdateVO vo)
         {
             if (ModelState.IsValid)
             {
@@ -85,11 +85,14 @@ namespace UniUti.Controllers
 
         [HttpDelete("Delete/{id}")]
         [Authorize]
-        public async Task<ActionResult<GenericResponse>> Delete(string id)
+        public async Task<ActionResult<ResultViewModel>> Delete(string id)
         {
             var response = await _service.Delete(id);
             if (!response) return NotFound();
-            return Ok("Curso deletado.");
+            return Ok(new ResultViewModel
+            {
+                Success = true,
+            });
         }
     }
 }
