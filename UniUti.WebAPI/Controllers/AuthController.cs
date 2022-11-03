@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using UniUti.WebAPI.ViewModels;
 using System.Security.Claims;
 using UniUti.WebAPI.Filters;
+using UniUti.Domain.Interfaces;
 
 namespace UniUti.Controllers
 {
@@ -16,12 +17,13 @@ namespace UniUti.Controllers
     public class AuthController : ControllerBase
     {
         private IAuthenticateService _authentication;
+        private IUploadService _uploadService;
 
-        public AuthController(IAuthenticateService authentication, IConfiguration configuration,
-            UserManager<ApplicationUser> userManager, IHttpContextAccessor accessor)
+        public AuthController(IAuthenticateService authentication, IUploadService uploadService)
         {
             _authentication = authentication ??
                 throw new ArgumentNullException(nameof(authentication));
+            _uploadService = uploadService;
         }
 
         [AllowAnonymous]
@@ -47,10 +49,16 @@ namespace UniUti.Controllers
         [HttpPost("CreateUser")]
         public async Task<ActionResult> CreateUser([FromBody] UsuarioRegistroVO userInfo)
         {
+            string imgUser = String.Empty;
             var existUser = await _authentication.GetUserByEmail(userInfo.Email);
             if (existUser is not null) return BadRequest("Email já cadastrado.");
+            if(userInfo.ImageUrl != null)
+            {
+                imgUser = await _uploadService.UploadBase64Image(userInfo.ImageUrl);
+                userInfo.ImageUrl = imgUser;
+            }
             var result = await _authentication.RegisterUser(userInfo);
-            return Ok($"Usuário {userInfo.Email} foi criado com sucesso.");
+            return Ok($"Usuário {result.Email} foi criado com sucesso.");
         }
 
         [HttpPost("refresh-login")]

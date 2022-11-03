@@ -39,6 +39,7 @@ namespace UniUti.Infra.IoC
             services.AddScoped<ILogRepository, LogRepository>();
             services.AddScoped<IDisciplinaService, DisciplinaService>();
             services.AddScoped<ICursoService, CursoService>();
+            services.AddScoped<IUploadService, UploadService>();
             services.AddScoped<IMonitoriaService, MonitoriaService>();
             services.AddScoped<IInstituicaoService, InstituicaoService>();
             services.AddScoped<IAuthenticateRepository, AuthenticateRepository>();

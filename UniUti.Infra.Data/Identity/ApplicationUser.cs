@@ -8,6 +8,7 @@ namespace UniUti.Infra.Data.Identity
 {
     public class ApplicationUser : IdentityUser
     {
+        public string? ImageUrl { get; set; }
         public string? NomeCompleto { get; set; }
         public string? Celular { get; set; }
         public Guid? InstituicaoId { get; set; }
@@ -28,11 +29,12 @@ namespace UniUti.Infra.Data.Identity
 
         protected ApplicationUser() { }
 
-        public ApplicationUser(string id, string nomeCompleto, string email, string celular, Guid? instituicaoId, Guid? cursoId, 
+        public ApplicationUser(string id, string nomeCompleto, string imageUrl, string email, string celular, Guid? instituicaoId, Guid? cursoId, 
             ICollection<Monitoria>? monitoriasSolicitadas, ICollection<Monitoria>? monitoriasOfertadas, 
             ICollection<EnderecoUsuario>? enderecos, EnderecoUsuario endereco, Instituicao? instituicao, Curso? curso, bool? deletado = false)
         {
             Id = id;
+            ImageUrl = imageUrl;
             NomeCompleto = nomeCompleto;
             Celular = celular;
             InstituicaoId = instituicaoId;

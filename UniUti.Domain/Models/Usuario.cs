@@ -5,6 +5,7 @@ namespace UniUti.Domain.Models
 {
     public class Usuario : EntidadeBase
     {
+        public string ImageUrl { get; set; }
         public string? NomeCompleto { get; private set; }
         public string? Password { get; private set; }
         public string? Email { get; private set; }

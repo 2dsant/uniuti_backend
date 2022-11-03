@@ -45,7 +45,7 @@ namespace UniUti.Infra.Data.Identity
 
         public async Task<Usuario> RegisterUser(Usuario usuario)
         {
-            var applicationUser = new ApplicationUser(usuario.Id.ToString(), usuario.NomeCompleto, usuario.Email, usuario.Celular,
+            var applicationUser = new ApplicationUser(usuario.Id.ToString(), usuario.NomeCompleto, usuario.ImageUrl, usuario.Email, usuario.Celular,
                 usuario.InstituicaoId, usuario.CursoId, usuario.MonitoriasSolicitadas, usuario.MonitoriasOfertadas, usuario.Enderecos,
                 usuario.Endereco, usuario.Instituicao, usuario.Curso, usuario.Deletado);
 

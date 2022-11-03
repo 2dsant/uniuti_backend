@@ -4,6 +4,8 @@ namespace UniUti.Application.ValueObjects
 {
     public class UsuarioRegistroVO
     {
+        public string? ImageUrl { get; set; }
+
         [Required(ErrorMessage = "Nome é obrigatório.")]
         [MaxLength(100, ErrorMessage = "Nome inválido. Nome deve possuir até 100 caracteres.")]
         [MinLength(8, ErrorMessage = "Nome inválido. Nome deve possuir no mínimo 8 caracteres.")]
