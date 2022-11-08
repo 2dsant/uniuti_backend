@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UniUti.Infra.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,43 +27,67 @@ namespace UniUti.Infra.Data.Migrations
                 name: "Cursos",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    deletado = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Deletado = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cursos", x => x.id);
+                    table.PrimaryKey("PK_Cursos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Disciplinas",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    deletado = table.Column<bool>(type: "bit", nullable: false)
+                    Deletado = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Disciplinas", x => x.id);
+                    table.PrimaryKey("PK_Disciplinas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Instituicoes",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    telefone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    celular = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    deletado = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Celular = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    Deletado = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Instituicoes", x => x.id);
+                    table.PrimaryKey("PK_Instituicoes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Logs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Action = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LogLevel = table.Column<int>(type: "int", nullable: false),
+                    Information = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,11 +116,12 @@ namespace UniUti.Infra.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    nomeCompleto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    celular = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NomeCompleto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Celular = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     InstituicaoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CursoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    deletado = table.Column<bool>(type: "bit", nullable: false),
+                    Deletado = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -119,36 +144,38 @@ namespace UniUti.Infra.Data.Migrations
                         name: "FK_AspNetUsers_Cursos_CursoId",
                         column: x => x.CursoId,
                         principalTable: "Cursos",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Instituicoes_InstituicaoId",
                         column: x => x.InstituicaoId,
                         principalTable: "Instituicoes",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "EnderecosInstituicao",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    cep = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    rua = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    numero = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    estado = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
-                    pais = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Cep = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    Rua = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Numero = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
+                    Pais = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     InstituicaoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    deletado = table.Column<bool>(type: "bit", nullable: true)
+                    Deletado = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EnderecosInstituicao", x => x.id);
+                    table.PrimaryKey("PK_EnderecosInstituicao", x => x.Id);
                     table.ForeignKey(
                         name: "FK_EnderecosInstituicao_Instituicoes_InstituicaoId",
                         column: x => x.InstituicaoId,
                         principalTable: "Instituicoes",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -241,19 +268,21 @@ namespace UniUti.Infra.Data.Migrations
                 name: "EnderecosUsuario",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    cep = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    rua = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    numero = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    estado = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
-                    pais = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Cep = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    Rua = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Numero = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
+                    Pais = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    deletado = table.Column<bool>(type: "bit", nullable: true)
+                    Deletado = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EnderecosUsuario", x => x.id);
+                    table.PrimaryKey("PK_EnderecosUsuario", x => x.Id);
                     table.ForeignKey(
                         name: "FK_EnderecosUsuario_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
@@ -266,20 +295,21 @@ namespace UniUti.Infra.Data.Migrations
                 name: "Monitorias",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SolicitanteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PrestadorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    descricao = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     DisciplinaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     InstituicaoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DataCriacao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    status_solicitacao = table.Column<int>(type: "int", nullable: false),
-                    tipo_solicitacao = table.Column<int>(type: "int", nullable: false),
-                    Deletado = table.Column<bool>(type: "bit", nullable: false)
+                    Status_solicitacao = table.Column<int>(type: "int", nullable: false),
+                    Tipo_solicitacao = table.Column<int>(type: "int", nullable: false),
+                    Deletado = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Monitorias", x => x.id);
+                    table.PrimaryKey("PK_Monitorias", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Monitorias_AspNetUsers_PrestadorId",
                         column: x => x.PrestadorId,
@@ -295,13 +325,13 @@ namespace UniUti.Infra.Data.Migrations
                         name: "FK_Monitorias_Disciplinas_DisciplinaId",
                         column: x => x.DisciplinaId,
                         principalTable: "Disciplinas",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Monitorias_Instituicoes_InstituicaoId",
                         column: x => x.InstituicaoId,
                         principalTable: "Instituicoes",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -406,6 +436,9 @@ namespace UniUti.Infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "EnderecosUsuario");
+
+            migrationBuilder.DropTable(
+                name: "Logs");
 
             migrationBuilder.DropTable(
                 name: "Monitorias");

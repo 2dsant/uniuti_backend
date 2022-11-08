@@ -21,7 +21,6 @@ namespace UniUti.Application.ValueObjects
         [MinLength(8, ErrorMessage = "Senha inválida. Senha deve possuir no mínimo 8 caracteres com caracteres especiais e letra maíuscula.")]
         public string? Password { get; set; }
 
-        [Required(ErrorMessage = "Endereço é obrigatório.")]
         public EnderecoCreateVO? Endereco { get; set; }
 
         [Required(ErrorMessage = "Celular é obrigatório.")]

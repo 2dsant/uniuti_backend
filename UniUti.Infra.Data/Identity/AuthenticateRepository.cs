@@ -35,7 +35,7 @@ namespace UniUti.Infra.Data.Identity
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByEmailAsync(email);
-                user.Endereco = _context.EnderecosUsuario.AsNoTracking().First(x => x.ApplicationUserId == user.Id && x.Deletado == false);
+                user.Endereco = _context.EnderecosUsuario.AsNoTracking().FirstOrDefault(x => x.ApplicationUserId == user.Id && x.Deletado == false);
                 return new Usuario(Guid.Parse(user.Id), user.NomeCompleto, user.PasswordHash, user.Email,
                     null, null, user.Celular, user.Enderecos?.ToList(), user.Endereco, user.Instituicao, user.Curso, user.Deletado);
             }
@@ -51,10 +51,10 @@ namespace UniUti.Infra.Data.Identity
 
             var result = await _userManager.CreateAsync(applicationUser, usuario.Password);
 
-            if (result.Succeeded)
+            if (result.Succeeded && usuario.Endereco != null)
             {
-                usuario.Endereco.SetId();
-                usuario.Endereco.SetApplicationUserId(usuario.Id.ToString());
+                usuario.Endereco?.SetId();
+                usuario.Endereco?.SetApplicationUserId(usuario.Id.ToString());
                 await _context.EnderecosUsuario.AddAsync(usuario.Endereco);
                 await _userManager.SetLockoutEnabledAsync(applicationUser, false);
                 await _signInManager.SignInAsync(applicationUser, isPersistent: false);

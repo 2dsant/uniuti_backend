@@ -31,7 +31,7 @@ namespace UniUti.Infra.Data.Identity
 
         public ApplicationUser(string id, string nomeCompleto, string imageUrl, string email, string celular, Guid? instituicaoId, Guid? cursoId, 
             ICollection<Monitoria>? monitoriasSolicitadas, ICollection<Monitoria>? monitoriasOfertadas, 
-            ICollection<EnderecoUsuario>? enderecos, EnderecoUsuario endereco, Instituicao? instituicao, Curso? curso, bool? deletado = false)
+            ICollection<EnderecoUsuario>? enderecos, EnderecoUsuario? endereco, Instituicao? instituicao, Curso? curso, bool? deletado = false)
         {
             Id = id;
             ImageUrl = imageUrl;

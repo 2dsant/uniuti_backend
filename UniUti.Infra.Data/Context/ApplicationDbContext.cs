@@ -151,7 +151,7 @@ namespace UniUti.Database
                 .HasColumnName("Tipo_solicitacao");
 
             //Relacionamentos
-            mb.Entity<Instituicao>().HasMany(x => x.Enderecos).WithOne(x => x.Instituicao).HasForeignKey(x => x.InstituicaoId).IsRequired();
+            mb.Entity<Instituicao>().HasMany(x => x.Enderecos).WithOne(x => x.Instituicao).HasForeignKey(x => x.InstituicaoId).IsRequired(false);
             mb.Entity<Disciplina>().HasMany(x => x.Monitorias).WithOne(x => x.Disciplina).HasForeignKey(x => x.DisciplinaId).IsRequired();
             mb.Entity<ApplicationUser>().HasOne(x => x.Instituicao).WithMany().HasForeignKey(x => x.InstituicaoId).IsRequired(false);
             mb.Entity<ApplicationUser>().HasOne(x => x.Curso).WithMany().HasForeignKey(x => x.CursoId).IsRequired(false);

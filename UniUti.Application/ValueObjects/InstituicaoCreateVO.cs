@@ -13,8 +13,8 @@ namespace UniUti.Application.ValueObjects
         public EnderecoCreateVO? Endereco { get; set; }
 
         [Required(ErrorMessage = "Telefone é obrigatório.")]
-        [MaxLength(11, ErrorMessage = "Número de telefone inválido. Número de telefone deve possuir 11 caracteres.")]
-        [MinLength(8, ErrorMessage = "Número de telefone inválido. Número de telefone deve possuir no mínimo 8 caracteres.")]
+        [MaxLength(10, ErrorMessage = "Número de telefone inválido. Número de telefone deve possuir 10 caracteres.")]
+        [MinLength(10, ErrorMessage = "Número de telefone inválido. Número de telefone deve possuir 10 caracteres.")]
         public string? Telefone { get; set; }
 
         [Required(ErrorMessage = "Email é obrigatório.")]

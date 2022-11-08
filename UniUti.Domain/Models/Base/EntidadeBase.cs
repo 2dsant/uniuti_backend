@@ -9,7 +9,7 @@ namespace UniUti.Domain.Models.Base
     public abstract class EntidadeBase
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
 
@@ -23,7 +23,8 @@ namespace UniUti.Domain.Models.Base
 
         public EntidadeBase(Guid? id, DateTime createdAt, DateTime updatedAt)
         {
-            Id = id is null ? Guid.NewGuid() : id.Value;
+            Guid g1 = new Guid();
+            Id = id.Value == g1 ? Guid.NewGuid() : id.Value;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;
         }

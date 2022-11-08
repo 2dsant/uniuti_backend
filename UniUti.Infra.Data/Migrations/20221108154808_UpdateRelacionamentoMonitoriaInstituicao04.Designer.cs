@@ -12,8 +12,8 @@ using UniUti.Database;
 namespace UniUti.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221103213759_AddCollumnImageUrl")]
-    partial class AddCollumnImageUrl
+    [Migration("20221108154808_UpdateRelacionamentoMonitoriaInstituicao04")]
+    partial class UpdateRelacionamentoMonitoriaInstituicao04
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,7 +246,6 @@ namespace UniUti.Infra.Data.Migrations
                         .HasColumnName("Estado");
 
                     b.Property<Guid?>("InstituicaoId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Numero")
@@ -441,9 +440,6 @@ namespace UniUti.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("InstituicaoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PrestadorId")
                         .HasColumnType("nvarchar(450)");
 
@@ -465,8 +461,6 @@ namespace UniUti.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DisciplinaId");
-
-                    b.HasIndex("InstituicaoId");
 
                     b.HasIndex("PrestadorId");
 
@@ -624,9 +618,7 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.HasOne("UniUti.Domain.Models.Instituicao", "Instituicao")
                         .WithMany("Enderecos")
-                        .HasForeignKey("InstituicaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InstituicaoId");
 
                     b.Navigation("Instituicao");
                 });
@@ -648,10 +640,6 @@ namespace UniUti.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UniUti.Domain.Models.Instituicao", "Instituicao")
-                        .WithMany()
-                        .HasForeignKey("InstituicaoId");
-
                     b.HasOne("UniUti.Infra.Data.Identity.ApplicationUser", null)
                         .WithMany("MonitoriasOfertadas")
                         .HasForeignKey("PrestadorId");
@@ -663,8 +651,6 @@ namespace UniUti.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Disciplina");
-
-                    b.Navigation("Instituicao");
                 });
 
             modelBuilder.Entity("UniUti.Infra.Data.Identity.ApplicationUser", b =>

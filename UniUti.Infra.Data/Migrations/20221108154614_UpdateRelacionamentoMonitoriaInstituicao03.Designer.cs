@@ -12,8 +12,8 @@ using UniUti.Database;
 namespace UniUti.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221023183110_AddLogs")]
-    partial class AddLogs
+    [Migration("20221108154614_UpdateRelacionamentoMonitoriaInstituicao03")]
+    partial class UpdateRelacionamentoMonitoriaInstituicao03
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,18 +161,23 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Deletado")
                         .HasColumnType("bit")
-                        .HasColumnName("deletado");
+                        .HasColumnName("Deletado");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasColumnName("nome");
+                        .HasColumnName("Nome");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -183,12 +188,14 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Deletado")
                         .HasColumnType("bit")
-                        .HasColumnName("deletado");
+                        .HasColumnName("Deletado");
 
                     b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
@@ -197,7 +204,10 @@ namespace UniUti.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasColumnName("nome");
+                        .HasColumnName("Nome");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -208,52 +218,56 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Cep")
                         .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)")
-                        .HasColumnName("cep");
+                        .HasColumnName("Cep");
 
                     b.Property<string>("Cidade")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("cidade");
+                        .HasColumnName("Cidade");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("Deletado")
                         .HasColumnType("bit")
-                        .HasColumnName("deletado");
+                        .HasColumnName("Deletado");
 
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)")
-                        .HasColumnName("estado");
+                        .HasColumnName("Estado");
 
                     b.Property<Guid?>("InstituicaoId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Numero")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)")
-                        .HasColumnName("numero");
+                        .HasColumnName("Numero");
 
                     b.Property<string>("Pais")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("pais");
+                        .HasColumnName("Pais");
 
                     b.Property<string>("Rua")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasColumnName("rua");
+                        .HasColumnName("Rua");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -266,8 +280,7 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ApplicationUserId")
                         .IsRequired()
@@ -277,41 +290,47 @@ namespace UniUti.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)")
-                        .HasColumnName("cep");
+                        .HasColumnName("Cep");
 
                     b.Property<string>("Cidade")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("cidade");
+                        .HasColumnName("Cidade");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("Deletado")
                         .HasColumnType("bit")
-                        .HasColumnName("deletado");
+                        .HasColumnName("Deletado");
 
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasMaxLength(2)
                         .HasColumnType("nvarchar(2)")
-                        .HasColumnName("estado");
+                        .HasColumnName("Estado");
 
                     b.Property<string>("Numero")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)")
-                        .HasColumnName("numero");
+                        .HasColumnName("Numero");
 
                     b.Property<string>("Pais")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasColumnName("pais");
+                        .HasColumnName("Pais");
 
                     b.Property<string>("Rua")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasColumnName("rua");
+                        .HasColumnName("Rua");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -324,36 +343,41 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Celular")
                         .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)")
-                        .HasColumnName("celular");
+                        .HasColumnName("Celular");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Deletado")
                         .HasColumnType("bit")
-                        .HasColumnName("deletado");
+                        .HasColumnName("Deletado");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasColumnName("email");
+                        .HasColumnName("Email");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasColumnName("nome");
+                        .HasColumnName("Nome");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)")
-                        .HasColumnName("telefone");
+                        .HasColumnName("Telefone");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -364,14 +388,26 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Action")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Information")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LogLevel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
@@ -386,11 +422,9 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("DataCriacao")
-                        .IsRequired()
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Deletado")
@@ -400,7 +434,7 @@ namespace UniUti.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
-                        .HasColumnName("descricao");
+                        .HasColumnName("Descricao");
 
                     b.Property<Guid?>("DisciplinaId")
                         .IsRequired()
@@ -418,11 +452,14 @@ namespace UniUti.Infra.Data.Migrations
 
                     b.Property<int>("StatusSolicitacao")
                         .HasColumnType("int")
-                        .HasColumnName("status_solicitacao");
+                        .HasColumnName("Status_solicitacao");
 
                     b.Property<int>("TipoSolicitacao")
                         .HasColumnType("int")
-                        .HasColumnName("tipo_solicitacao");
+                        .HasColumnName("Tipo_solicitacao");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -449,7 +486,7 @@ namespace UniUti.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)")
-                        .HasColumnName("celular");
+                        .HasColumnName("Celular");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -460,7 +497,7 @@ namespace UniUti.Infra.Data.Migrations
 
                     b.Property<bool>("Deletado")
                         .HasColumnType("bit")
-                        .HasColumnName("deletado");
+                        .HasColumnName("Deletado");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -468,6 +505,9 @@ namespace UniUti.Infra.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("InstituicaoId")
                         .HasColumnType("uniqueidentifier");
@@ -482,7 +522,7 @@ namespace UniUti.Infra.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)")
-                        .HasColumnName("nomeCompleto");
+                        .HasColumnName("NomeCompleto");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -583,9 +623,7 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.HasOne("UniUti.Domain.Models.Instituicao", "Instituicao")
                         .WithMany("Enderecos")
-                        .HasForeignKey("InstituicaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InstituicaoId");
 
                     b.Navigation("Instituicao");
                 });

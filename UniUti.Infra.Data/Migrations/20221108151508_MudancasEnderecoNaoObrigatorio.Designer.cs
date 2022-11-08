@@ -12,8 +12,8 @@ using UniUti.Database;
 namespace UniUti.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221101175654_UpdateCollumnName")]
-    partial class UpdateCollumnName
+    [Migration("20221108151508_MudancasEnderecoNaoObrigatorio")]
+    partial class MudancasEnderecoNaoObrigatorio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,7 +246,6 @@ namespace UniUti.Infra.Data.Migrations
                         .HasColumnName("Estado");
 
                     b.Property<Guid?>("InstituicaoId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Numero")
@@ -507,6 +506,9 @@ namespace UniUti.Infra.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("InstituicaoId")
                         .HasColumnType("uniqueidentifier");
 
@@ -621,9 +623,7 @@ namespace UniUti.Infra.Data.Migrations
                 {
                     b.HasOne("UniUti.Domain.Models.Instituicao", "Instituicao")
                         .WithMany("Enderecos")
-                        .HasForeignKey("InstituicaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InstituicaoId");
 
                     b.Navigation("Instituicao");
                 });
@@ -646,7 +646,7 @@ namespace UniUti.Infra.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("UniUti.Domain.Models.Instituicao", "Instituicao")
-                        .WithMany()
+                        .WithMany("Monitorias")
                         .HasForeignKey("InstituicaoId");
 
                     b.HasOne("UniUti.Infra.Data.Identity.ApplicationUser", null)
@@ -687,6 +687,8 @@ namespace UniUti.Infra.Data.Migrations
             modelBuilder.Entity("UniUti.Domain.Models.Instituicao", b =>
                 {
                     b.Navigation("Enderecos");
+
+                    b.Navigation("Monitorias");
                 });
 
             modelBuilder.Entity("UniUti.Infra.Data.Identity.ApplicationUser", b =>

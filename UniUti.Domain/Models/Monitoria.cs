@@ -10,9 +10,7 @@ namespace UniUti.Domain.Models
         public string? PrestadorId { get; private set; }
         public string? Descricao { get; private set; }
         public Disciplina? Disciplina { get; private set; }
-        public Instituicao? Instituicao { get; private set; }
         public Guid? DisciplinaId { get; private set; }
-        public Guid? InstituicaoId { get; private set; }
         public StatusSolicitacao? StatusSolicitacao { get; private set; }
         public TipoSolicitacao? TipoSolicitacao { get; private set; }
         public bool Deletado { get; private set; } = false;
@@ -26,9 +24,7 @@ namespace UniUti.Domain.Models
             PrestadorId = prestadorId;
             Descricao = descricao;
             Disciplina = disciplina;
-            Instituicao = instituicao;
             DisciplinaId = Disciplina.Id;
-            InstituicaoId = Instituicao.Id;
             StatusSolicitacao = statusSolicitacaco;
             TipoSolicitacao = tipoSolicitacao;
             Validate();
@@ -41,9 +37,7 @@ namespace UniUti.Domain.Models
             PrestadorId = prestadorId;
             Descricao = descricao;
             Disciplina = disciplina;
-            Instituicao = instituicao;
             DisciplinaId = Disciplina.Id;
-            InstituicaoId = Instituicao.Id;
             StatusSolicitacao = statusSolicitacaco;
             TipoSolicitacao = tipoSolicitacao;
             Validate();
@@ -56,9 +50,7 @@ namespace UniUti.Domain.Models
             PrestadorId = prestadorId;
             Descricao = descricao;
             Disciplina = disciplina;
-            Instituicao = instituicao;
             DisciplinaId = Disciplina.Id;
-            InstituicaoId = Instituicao.Id;
             StatusSolicitacao = statusSolicitacaco;
             TipoSolicitacao = tipoSolicitacao;
             Validate();
@@ -96,21 +88,9 @@ namespace UniUti.Domain.Models
             Validate();
         }
 
-        public void SetInstituicao(Instituicao instituicao)
-        {
-            Instituicao = instituicao;
-            Validate();
-        }
-
         public void SetDisciplinaId(string id)
         {
             DisciplinaId = Guid.Parse(id);
-            Validate();
-        }
-
-        public void SetInstituicaoId(string id)
-        {
-            InstituicaoId = Guid.Parse(id);
             Validate();
         }
 
