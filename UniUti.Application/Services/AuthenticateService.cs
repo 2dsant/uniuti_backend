@@ -62,6 +62,12 @@ namespace UniUti.Application.Services
             return result is null ? null : _mapper.Map<UsuarioResponseVO>(result);
         }
 
+        public async Task<UsuarioResponseVO> GetUserById(string id)
+        {
+            var result = await _authentication.GetApplicationUserById(id);
+            return result is null ? null : _mapper.Map<UsuarioResponseVO>(result);
+        }
+
         public async Task<string> GenerateToken(string email)
         {
             var token = await _authentication.GenerateToken(email);

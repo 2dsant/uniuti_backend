@@ -8,6 +8,7 @@ namespace UniUti.Application.Interfaces
         Task<UsuarioResponseVO> RegisterUser(UsuarioRegistroVO usuario);
         Task<string> GenerateToken(string email);
         Task<UsuarioResponseVO> GetUserByEmail(string email);
+        Task<UsuarioResponseVO> GetUserById(string id);
         Task<UserToken> RefreshToken(string userId);
         //Task Logout();
     }
