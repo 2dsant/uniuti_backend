@@ -49,7 +49,9 @@ namespace UniUti.Application.Services
         public async Task Create(MonitoriaCreateVO vo)
         {
             var monitoria = _mapper.Map<Monitoria>(vo);
-            monitoria.SetInstituicao(await _instituicaoRepository.FindById(vo.InstituicaoId));
+            if (monitoria.InstituicaoId != null)
+                monitoria.SetInstituicao(await _instituicaoRepository.FindById(vo.InstituicaoId));
+
             monitoria.SetDisciplina(await _disciplinaRepository.FindById(vo.DisciplinaId));
             await _repository.Create(monitoria);
         }
