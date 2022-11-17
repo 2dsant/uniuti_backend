@@ -58,7 +58,11 @@ namespace UniUti.Controllers
                 userInfo.ImageUrl = imgUser;
             }
             var result = await _authentication.RegisterUser(userInfo);
-            return Ok($"Usuário {result.Email} foi criado com sucesso.");
+            return Ok(new ResultViewModel
+            {
+                Success = true,
+                Data = result
+            });
         }
 
         [HttpPost("refresh-login")]

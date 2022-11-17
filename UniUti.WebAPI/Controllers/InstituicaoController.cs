@@ -8,7 +8,6 @@ using UniUti.WebAPI.Filters;
 
 namespace UniUti.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/v1/[controller]")]
     [ServiceFilter(typeof(ApiLoggingFilter))]
@@ -47,6 +46,7 @@ namespace UniUti.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize]
         public async Task<ActionResult<ResultViewModel>> Create
         ([FromBody] InstituicaoCreateVO vo)
         {
@@ -66,6 +66,7 @@ namespace UniUti.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize]
         public async Task<ActionResult<ResultViewModel>> Update
             ([FromBody] InstituicaoResponseVO vo)
         {
@@ -85,6 +86,7 @@ namespace UniUti.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize]
         public async Task<ActionResult<ResultViewModel>> Delete(string id)
         {
             var response = await _service.Delete(id);
