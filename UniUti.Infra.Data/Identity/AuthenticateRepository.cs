@@ -15,16 +15,21 @@ namespace UniUti.Infra.Data.Identity
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IInstituicaoRepository _instituicaoRepository;
+        private readonly ICursoRepository _cursoRepository;
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
 
         public AuthenticateRepository(SignInManager<ApplicationUser> signInManage,
-            UserManager<ApplicationUser> userManager, IConfiguration configuration, ApplicationDbContext context)
+            UserManager<ApplicationUser> userManager, IConfiguration configuration, ApplicationDbContext context,
+            IInstituicaoRepository instituicaoRepository, ICursoRepository cursoRepository)
         {
             _signInManager = signInManage;
             _userManager = userManager;
             _configuration = configuration;
             _context = context;
+            _instituicaoRepository = instituicaoRepository;
+            _cursoRepository = cursoRepository;
         }
 
         public async Task<Usuario> Authenticate(string email, string password)
@@ -37,7 +42,7 @@ namespace UniUti.Infra.Data.Identity
                 var user = await _userManager.FindByEmailAsync(email);
                 user.Endereco = _context.EnderecosUsuario.AsNoTracking().FirstOrDefault(x => x.ApplicationUserId == user.Id && x.Deletado == false);
                 return new Usuario(Guid.Parse(user.Id), user.NomeCompleto, user.PasswordHash, user.Email,
-                    null, null, user.Celular, user.Enderecos?.ToList(), user.Endereco, user.Instituicao, user.Curso, user.Deletado);
+                    null, null, user.Celular, user.Enderecos?.ToList(), user.Endereco, user.InstituicaoId, user.CursoId, user.Deletado);
             }
 
             return null;
@@ -63,6 +68,14 @@ namespace UniUti.Infra.Data.Identity
 
             var user = await _userManager.FindByEmailAsync(usuario.Email);
 
+            if (user.InstituicaoId is not null)
+                user.Instituicao = await _instituicaoRepository.FindById(user.InstituicaoId.ToString());
+
+            if (user.CursoId is not null)
+                user.Curso = await _cursoRepository.FindById(user.CursoId.ToString());
+
+            user.Endereco = await _context.EnderecosUsuario.AsNoTracking().FirstOrDefaultAsync(x => x.ApplicationUserId == user.Id.ToString());
+
             return new Usuario(Guid.Parse(user.Id), user.NomeCompleto, user.PasswordHash, user.Email,
                 null, null, user.Celular, user.Enderecos?.ToList(), user.Endereco, user.Instituicao, user.Curso, user.Deletado);
         }
@@ -71,7 +84,17 @@ namespace UniUti.Infra.Data.Identity
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null) return null;
+
+            if (user.InstituicaoId is not null)
+                user.Instituicao = await _instituicaoRepository.FindById(user.InstituicaoId.ToString());
+
+            if (user.CursoId is not null)
+                user.Curso = await _cursoRepository.FindById(user.CursoId.ToString());
+
             user.Id = await _userManager.GetUserIdAsync(user);
+
+            user.Endereco = await _context.EnderecosUsuario.AsNoTracking().FirstOrDefaultAsync(x => x.ApplicationUserId == user.Id.ToString());
+
             return new Usuario(Guid.Parse(user.Id), user.NomeCompleto, user.PasswordHash, user.Email,
                 null, null, user.Celular, user.Enderecos?.ToList(), user.Endereco, user.Instituicao, user.Curso, user.Deletado);
         }
@@ -80,6 +103,15 @@ namespace UniUti.Infra.Data.Identity
         {
             var user = await _userManager.FindByIdAsync(userId);
             user.Id = await _userManager.GetUserIdAsync(user);
+
+            if (user.InstituicaoId is not null)
+                user.Instituicao = await _instituicaoRepository.FindById(user.InstituicaoId.ToString());
+
+            if (user.CursoId is not null)
+                user.Curso = await _cursoRepository.FindById(user.CursoId.ToString());
+
+            user.Endereco = await _context.EnderecosUsuario.AsNoTracking().FirstOrDefaultAsync(x => x.ApplicationUserId == user.Id.ToString());
+
             return new Usuario(Guid.Parse(user.Id), user.NomeCompleto, user.PasswordHash, user.Email,
                 null, null, user.Celular, user.Enderecos?.ToList(), user.Endereco, user.Instituicao, user.Curso, user.Deletado);
         }

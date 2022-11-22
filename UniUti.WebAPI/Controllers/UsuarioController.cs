@@ -24,9 +24,9 @@ namespace UniUti.WebAPI.Controllers
         }
 
         [HttpPost("get-user-by-id")]
-        public async Task<ActionResult<UsuarioResponseVO>> GetUserById(string email)
+        public async Task<ActionResult<UsuarioResponseVO>> GetUserById(string id)
         {
-            return await _authentication.GetUserById(email);
+            return await _authentication.GetUserById(id);
         }
     }
 }

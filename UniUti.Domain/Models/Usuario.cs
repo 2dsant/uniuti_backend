@@ -44,6 +44,26 @@ namespace UniUti.Domain.Models
 
         public Usuario(Guid? id, string nomeCompleto, string password, string email, List<Monitoria>? monitoriasSolicitadas,
             List<Monitoria>? monitoriasOfertadas, string? celular, List<EnderecoUsuario>? enderecos,
+            EnderecoUsuario? endereco, Guid? instituicaoId, Guid? cursoId, bool deletado = false) : base(id)
+        {
+            NomeCompleto = nomeCompleto;
+            Password = password;
+            Email = email;
+            Celular = celular;
+            MonitoriasOfertadas = monitoriasOfertadas;
+            MonitoriasSolicitadas = monitoriasSolicitadas;
+            InstituicaoId = Instituicao?.Id;
+            CursoId = Curso?.Id;
+            Enderecos = enderecos;
+            Endereco = endereco;
+            InstituicaoId = instituicaoId;
+            CursoId = cursoId;
+            Deletado = deletado;
+            Validate();
+        }
+
+        public Usuario(Guid? id, string nomeCompleto, string password, string email, List<Monitoria>? monitoriasSolicitadas,
+            List<Monitoria>? monitoriasOfertadas, string? celular, List<EnderecoUsuario>? enderecos,
             EnderecoUsuario? endereco, Instituicao? instituicao, Curso? curso, DateTime createdAt, bool deletado = false) : base(id, createdAt)
         {
             NomeCompleto = nomeCompleto;
