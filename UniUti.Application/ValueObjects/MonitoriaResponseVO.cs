@@ -4,6 +4,7 @@ namespace UniUti.Application.ValueObjects
 {
     public class MonitoriaResponseVO : BaseVO
     {
+        public string? Titulo { get; set; }
         public string SolicitanteId { get; set; }
         public string PrestadorId { get; set; }
         public string? Descricao { get; set; }

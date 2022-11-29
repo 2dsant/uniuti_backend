@@ -8,6 +8,11 @@ namespace UniUti.Application.ValueObjects
         [Required(ErrorMessage = "Id é obrigatório.")]
         public string Id { get; set; }
 
+        [Required(ErrorMessage = "Título é obrigatório.")]
+        [MaxLength(150, ErrorMessage = "Título inválido. Título deve possuir até 150 caracteres.")]
+        [MinLength(10, ErrorMessage = "Título inválido. Título deve possuir no mínimo 10 caracteres.")]
+        public string? Titulo { get; set; }
+
         [Required(ErrorMessage = "SolicitanteId é obrigatório.")]
         public virtual Guid SolicitanteId { get; set; }
         public Guid? PrestadorId { get; set; }

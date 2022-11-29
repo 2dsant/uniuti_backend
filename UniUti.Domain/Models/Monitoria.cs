@@ -6,6 +6,7 @@ namespace UniUti.Domain.Models
 {
     public class Monitoria : EntidadeBase
     {
+        public string Titulo { get; set;}
         public string? SolicitanteId { get; private set; }
         public string? PrestadorId { get; private set; }
         public string? Descricao { get; private set; }
@@ -17,9 +18,10 @@ namespace UniUti.Domain.Models
 
         protected Monitoria() { }
 
-        public Monitoria(Guid? id,string solicitanteId, string? prestadorId, string descricao, Disciplina disciplina,
+        public Monitoria(Guid? id, string titulo, string solicitanteId, string? prestadorId, string descricao, Disciplina disciplina,
             Instituicao? instituicao, StatusSolicitacao statusSolicitacaco, TipoSolicitacao tipoSolicitacao, bool? deletado = false) : base(id)
         {
+            Titulo = titulo;
             SolicitanteId = solicitanteId;
             PrestadorId = prestadorId;
             Descricao = descricao;
@@ -30,9 +32,10 @@ namespace UniUti.Domain.Models
             Validate();
         }
 
-        public Monitoria(Guid? id, string solicitanteId, string? prestadorId, string descricao, Disciplina disciplina,
+        public Monitoria(Guid? id, string titulo, string solicitanteId, string? prestadorId, string descricao, Disciplina disciplina,
             Instituicao? instituicao, StatusSolicitacao statusSolicitacaco, TipoSolicitacao tipoSolicitacao, DateTime createdAt, bool? deletado = false) : base(id, createdAt)
         {
+            Titulo = titulo;
             SolicitanteId = solicitanteId;
             PrestadorId = prestadorId;
             Descricao = descricao;
@@ -43,9 +46,10 @@ namespace UniUti.Domain.Models
             Validate();
         }
 
-        public Monitoria(Guid? id, string solicitanteId, string? prestadorId, string descricao, Disciplina disciplina,
+        public Monitoria(Guid? id, string titulo, string solicitanteId, string? prestadorId, string descricao, Disciplina disciplina,
             Instituicao? instituicao, StatusSolicitacao statusSolicitacaco, TipoSolicitacao tipoSolicitacao, DateTime createdAt, DateTime updatedAt, bool? deletado = false) : base(id, createdAt, updatedAt)
         {
+            Titulo = titulo;
             SolicitanteId = solicitanteId;
             PrestadorId = prestadorId;
             Descricao = descricao;

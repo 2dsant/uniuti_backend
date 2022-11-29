@@ -5,6 +5,11 @@ namespace UniUti.Application.ValueObjects
 {
     public class MonitoriaCreateVO
     {
+        [Required(ErrorMessage = "Título é obrigatório.")]
+        [MaxLength(150, ErrorMessage = "Título inválido. Título deve possuir até 150 caracteres.")]
+        [MinLength(10, ErrorMessage = "Título inválido. Título deve possuir no mínimo 10 caracteres.")]
+        public string? Titulo { get; set; }
+
         [Required(ErrorMessage = "Solicitante é obrigatório.")]
         public string? SolicitanteId { get; set; }
 

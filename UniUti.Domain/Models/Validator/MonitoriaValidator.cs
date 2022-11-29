@@ -20,6 +20,14 @@ namespace UniUti.Domain.Models.Validator
 
             RuleFor(x => x.SolicitanteId)
                 .NotNull()
+                .WithMessage("O titulo não pode ser nulo.")
+                .NotEmpty()
+                .WithMessage("O titulo não pode ser vazio.")
+                .MaximumLength(150)
+                .WithMessage("Título deve conter no máximo 150 caracteres.");
+
+            RuleFor(x => x.SolicitanteId)
+                .NotNull()
                 .WithMessage("O solicitante não pode ser nulo.")
                 .NotEmpty()
                 .WithMessage("O solicitante não pode ser vazio.");
