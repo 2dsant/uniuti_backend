@@ -28,6 +28,7 @@ namespace UniUti.Config
                 config.CreateMap<Instituicao, InstituicaoCreateVO>().ReverseMap();
                 config.CreateMap<MonitoriaResponseVO, Monitoria>().ReverseMap();
                 config.CreateMap<MonitoriaCreateVO, Monitoria>().ReverseMap();
+                config.CreateMap<MonitoriaUpdateVO, Monitoria>().ReverseMap();
 
                 //config.CreateMap<Monitoria, MonitoriaCreateVO>()
                 //    .ForMember(dst => dst.DisciplinaId,

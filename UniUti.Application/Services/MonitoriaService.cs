@@ -58,6 +58,7 @@ namespace UniUti.Application.Services
             var monitoriaDb = await _repository.FindById(vo.Id.ToString());
             var monitoria = _mapper.Map<Monitoria>(vo);
             monitoria.SetDisciplina(await _disciplinaRepository.FindById(vo.DisciplinaId));
+            monitoria.SetStatusSolicitacao(vo.StatusSolicitacaco.Value);
             monitoria.SetCreatedAt(monitoriaDb.CreatedAt);
             monitoria.SetUpdatedAt(DateTime.Now);
 

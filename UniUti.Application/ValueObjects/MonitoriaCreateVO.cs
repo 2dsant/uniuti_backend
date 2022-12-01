@@ -23,7 +23,5 @@ namespace UniUti.Application.ValueObjects
 
         [Required(ErrorMessage = "Disciplina é obrigatório.")]
         public string? DisciplinaId { get; set; }
-
-        public string? InstituicaoId { get; set; }
     }
 }

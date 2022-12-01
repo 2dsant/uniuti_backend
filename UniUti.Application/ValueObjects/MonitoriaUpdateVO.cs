@@ -25,12 +25,10 @@ namespace UniUti.Application.ValueObjects
         [Required(ErrorMessage = "Disciplina é obrigatório.")]
         public string DisciplinaId { get; set; }
 
-        public string InstituicaoId { get; set; }
-
         [Required(ErrorMessage = "Status da solicitação é obrigatório.")]
         public StatusSolicitacao? StatusSolicitacaco { get; set; }
 
         [Required(ErrorMessage = "Tipo da solicitação é obrigatório.")]
-        public StatusSolicitacao? TipoSolicitacao { get; set; }
+        public TipoSolicitacao? TipoSolicitacao { get; set; }
     }
 }
